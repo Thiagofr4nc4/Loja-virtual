@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'loja-virtual.' is invalid and this project uses 'loja_virtual' instead.
+* The original package name 'loja-virtual.' is invalid and this project uses 'Loja_Virtual' instead.
 
 # Getting Started
 
