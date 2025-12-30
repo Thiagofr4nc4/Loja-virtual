@@ -10,4 +10,5 @@ import java.util.List;
 public interface ProdutosRepository extends JpaRepository<Produto, Long> {
 
     List<Produto> id(Long id);
+
 }

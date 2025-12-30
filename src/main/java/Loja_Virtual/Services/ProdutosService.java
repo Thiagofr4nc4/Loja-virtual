@@ -30,12 +30,29 @@ public class ProdutosService {
     }
 
     public Produto atualizar(Long id, ProdutoRequestDTO dto){
-        Produto produtoExistente = produtosRepository.findById(id)
+        Produto atualizado = produtosRepository.findById(id)
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
-        produtoExistente.setNome_produto(dto.nome());
-        produtoExistente.setDescricao(dto.descricao());
-        produtoExistente.setPreco(dto.preco());
+        if (dto.nome() != null) {
+            atualizado.setNome_produto(dto.nome());
+        }
+        if (dto.preco() != null) {
+            atualizado.setPreco(dto.preco());
+        }
+        if (dto.descricao() != null) {
+            atualizado.setDescricao(dto.descricao());
+        }
+        if (dto.estoque() != null) {
+            atualizado.setEstoque(dto.estoque());
+        }
 
-        return produtosRepository.save(produtoExistente);
+
+        return produtosRepository.save(atualizado);
+    }
+
+    public Produto deletar(Long id){
+        Produto deletado = produtosRepository.findById(id)
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
+        produtosRepository.delete(deletado);
+        return deletado;
     }
 }
