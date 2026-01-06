@@ -21,7 +21,7 @@ public class CarrinhoService {
         Usuario usuario = usuarioRepository.findById(usuarioID)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        Carrinho carrinho = usuario.getCarrinho();
+        usuario.getCarrinho().getProdutos().add(produtoId);
 
         Produto produto = produtosRepository.findById(produtoId)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
