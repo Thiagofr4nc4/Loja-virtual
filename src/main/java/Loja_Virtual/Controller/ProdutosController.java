@@ -1,8 +1,11 @@
 package Loja_Virtual.Controller;
 
-import Loja_Virtual.Controller.Repository.ProdutosRepository;
+import Loja_Virtual.DTOS.AdicionarProdutoDTO;
+import Loja_Virtual.Entities.Carrinho;
+import Loja_Virtual.Repository.ProdutosRepository;
 import Loja_Virtual.DTOS.ProdutoRequestDTO;
 import Loja_Virtual.Entities.Produto;
+import Loja_Virtual.Services.CarrinhoService;
 import Loja_Virtual.Services.ProdutosService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +20,7 @@ import java.util.List;
 public class ProdutosController {
 
     private final ProdutosService produtosService;
-    private final ProdutosRepository produtosRepository;
+    private final CarrinhoService carrinhoService;
 
     @GetMapping("/produtos")
     public List<Produto> listarProdutos(){return produtosService.listarProdutos();}
@@ -41,4 +44,10 @@ public class ProdutosController {
 
     }
 
+    @PostMapping("/adicionar-carrinho/{usuarioId}")
+    public ResponseEntity<Carrinho> adicionarCarrinho(@PathVariable Long usuarioId,
+                                                      @RequestBody AdicionarProdutoDTO dto){
+        Carrinho carrinho = carrinhoService.adicionarProduto(usuarioId, dto.produtoId());
+        return ResponseEntity.ok(carrinho);
+    }
 }

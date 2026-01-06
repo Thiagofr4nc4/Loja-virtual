@@ -1,4 +1,4 @@
-package Loja_Virtual.Controller.Repository;
+package Loja_Virtual.Repository;
 
 import Loja_Virtual.Entities.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;

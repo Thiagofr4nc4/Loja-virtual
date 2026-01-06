@@ -1,6 +1,6 @@
 package Loja_Virtual.Services;
 
-import Loja_Virtual.Controller.Repository.ProdutosRepository;
+import Loja_Virtual.Repository.ProdutosRepository;
 import Loja_Virtual.DTOS.ProdutoRequestDTO;
 import Loja_Virtual.Entities.Produto;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,6 @@ public class ProdutosService {
         if (dto.estoque() != null) {
             atualizado.setEstoque(dto.estoque());
         }
-
 
         return produtosRepository.save(atualizado);
     }
