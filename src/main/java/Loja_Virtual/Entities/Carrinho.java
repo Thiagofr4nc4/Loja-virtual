@@ -1,5 +1,6 @@
 package Loja_Virtual.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class Carrinho {
     private Long id;
 
     @OneToOne
+    @JsonBackReference
     @JoinColumn(name = "id_usuario_fk")
     private Usuario usuario;
 
