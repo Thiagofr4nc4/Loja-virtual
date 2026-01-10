@@ -1,6 +1,7 @@
 package Loja_Virtual.Controller;
 
 import Loja_Virtual.DTOS.AdicionarProdutoDTO;
+import Loja_Virtual.DTOS.CarrinhoDTO;
 import Loja_Virtual.Entities.Carrinho;
 import Loja_Virtual.Repository.ProdutosRepository;
 import Loja_Virtual.DTOS.ProdutoRequestDTO;
@@ -47,7 +48,13 @@ public class ProdutosController {
     @PostMapping("/adicionar-carrinho/{usuarioId}")
     public ResponseEntity<Carrinho> adicionarCarrinho(@PathVariable Long usuarioId,
                                                       @RequestBody AdicionarProdutoDTO dto){
-        Carrinho carrinho = carrinhoService.adicionarProduto(usuarioId, dto.produtoId());
+        Carrinho carrinho = carrinhoService.adicionarProduto
+                (       usuarioId,
+                        dto.produtoId(),
+                        dto.quantidade()
+                );
+
+        CarrinhoDTO carrinhoDTO = carrinhoService.montarCarrinhoDTO(carrinho);
         return ResponseEntity.ok(carrinho);
     }
 }

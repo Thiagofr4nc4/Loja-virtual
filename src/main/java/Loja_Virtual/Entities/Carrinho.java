@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "Carrinho")
+@Table(name = "carrinho")
 public class Carrinho {
 
     @Id
@@ -18,15 +18,10 @@ public class Carrinho {
     private Long id;
 
     @OneToOne
-    @JsonBackReference
     @JoinColumn(name = "id_usuario_fk")
     private Usuario usuario;
 
-    @ManyToMany
-    @JoinTable(
-            name = "carrinho_produtos",
-            joinColumns = @JoinColumn(name = "carrinho_id"),
-            inverseJoinColumns = @JoinColumn(name = "produto_id")
-    )
-    private List<Produto> produtos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemCarrinho> itens = new ArrayList<>();
 }

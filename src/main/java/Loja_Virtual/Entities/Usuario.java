@@ -24,6 +24,5 @@ public class Usuario {
     private String senhaUsuario;
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
-    @JsonManagedReference //( quem comanda a relação bidirecional)
     private Carrinho carrinho;
 }
