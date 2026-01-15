@@ -2,7 +2,6 @@ package Loja_Virtual.Controller;
 
 import Loja_Virtual.DTOS.UsuarioRequestDTO;
 import Loja_Virtual.DTOS.UsuarioResponseDTO;
-import Loja_Virtual.Entities.Usuario;
 import Loja_Virtual.Services.CadastoUsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

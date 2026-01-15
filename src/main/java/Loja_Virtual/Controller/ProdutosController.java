@@ -26,19 +26,19 @@ public class ProdutosController {
     @GetMapping("/produtos")
     public List<Produto> listarProdutos(){return produtosService.listarProdutos();}
 
-    @PostMapping("/criar-produto")
+    @PostMapping("/admin/produto")
     public ResponseEntity<Produto> criarProduto(@RequestBody ProdutoRequestDTO dto){
         Produto salvo = produtosService.criar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
-    @PatchMapping("/editar-produto/{id}")
+    @PatchMapping("/admin/produto/{id}")
     public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody ProdutoRequestDTO dto){
         Produto atualizado = produtosService.atualizar(id, dto);
         return ResponseEntity.ok(atualizado);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/admin/{id}")
         public ResponseEntity<Produto> deletar(@PathVariable Long id){
             Produto deletado = produtosService.deletar(id);
             return ResponseEntity.noContent().build();

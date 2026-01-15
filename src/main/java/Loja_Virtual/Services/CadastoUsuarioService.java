@@ -9,6 +9,7 @@ import Loja_Virtual.Repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -16,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 public class CadastoUsuarioService {
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public UsuarioResponseDTO novoUsuario(UsuarioRequestDTO dto){
@@ -27,7 +29,10 @@ public class CadastoUsuarioService {
         Usuario novoUsuario = new Usuario();
         novoUsuario.setNomeUsuario(dto.nome());
         novoUsuario.setEmailUsuario(dto.email());
-        novoUsuario.setSenhaUsuario(dto.senha());
+
+        String senhaCriptografada = passwordEncoder.encode(dto.senha());
+
+        novoUsuario.setSenhaUsuario(senhaCriptografada);
 
         Carrinho carrinho = new Carrinho();
         carrinho.setUsuario(novoUsuario);

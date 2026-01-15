@@ -28,6 +28,6 @@ public class Produto {
     @Column(nullable = false)
     private int estoque;
 
-    @ManyToMany(mappedBy = "produtos")
-    private List<Carrinho> carrinhos = new ArrayList<>();
+    @OneToMany(mappedBy = "produto")
+    private List<ItemCarrinho> itens = new ArrayList<>();
 }

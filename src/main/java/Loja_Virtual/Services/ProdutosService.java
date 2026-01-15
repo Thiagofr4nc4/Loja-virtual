@@ -21,7 +21,7 @@ public class ProdutosService {
     public Produto criar(ProdutoRequestDTO dto){
         Produto novoProduto = new Produto();
 
-        novoProduto.setNome_produto(dto.nome());
+        novoProduto.setNome(dto.nome());
         novoProduto.setDescricao(dto.descricao());
         novoProduto.setPreco(dto.preco());
         novoProduto.setEstoque(dto.estoque());
@@ -33,7 +33,7 @@ public class ProdutosService {
         Produto atualizado = produtosRepository.findById(id)
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
         if (dto.nome() != null) {
-            atualizado.setNome_produto(dto.nome());
+            atualizado.setNome(dto.nome());
         }
         if (dto.preco() != null) {
             atualizado.setPreco(dto.preco());
