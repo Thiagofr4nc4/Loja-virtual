@@ -2,7 +2,7 @@ package Loja_Virtual.Services;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-public interface UserDetailsService{
+public interface UserDetailsService {
     UserDetails loadUserByUsername(String username);
 
 }

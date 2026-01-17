@@ -6,6 +6,7 @@ import Loja_Virtual.DTOS.UsuarioResponseDTO;
 import Loja_Virtual.Entities.Carrinho;
 import Loja_Virtual.Entities.Usuario;
 import Loja_Virtual.Repository.UsuarioRepository;
+import Loja_Virtual.Security.Role;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ public class CadastoUsuarioService {
         Usuario novoUsuario = new Usuario();
         novoUsuario.setNomeUsuario(dto.nome());
         novoUsuario.setEmailUsuario(dto.email());
+        novoUsuario.setRole(Role.USER);
 
         String senhaCriptografada = passwordEncoder.encode(dto.senha());
 

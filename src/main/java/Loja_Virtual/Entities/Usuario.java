@@ -1,11 +1,13 @@
 package Loja_Virtual.Entities;
 
 import Loja_Virtual.Security.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -33,21 +35,22 @@ public class Usuario implements UserDetails {
     private Role role;
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Carrinho carrinho;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override
     public @Nullable String getPassword() {
-        return "";
+        return senhaUsuario;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return emailUsuario;
     }
 
     @Override

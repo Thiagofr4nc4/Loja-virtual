@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/auth")
 public class LoginController {
 
     private final AuthenticationManager authenticationManager;
-    private JwtService jwtService;
+    private final  JwtService jwtService;
 
     @PostMapping("/login")
     public ResponseEntity<?> Login(@RequestBody LoginRequestDTO dto){
@@ -29,7 +31,7 @@ public class LoginController {
 
         String token = jwtService.gerarToken(auth);
 
-        return ResponseEntity.ok("Login recebido" + dto.email());
+        return ResponseEntity.ok(Map.of("token", token));
     }
 
 

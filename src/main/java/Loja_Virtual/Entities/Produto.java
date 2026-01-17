@@ -1,5 +1,6 @@
 package Loja_Virtual.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,5 +30,6 @@ public class Produto {
     private int estoque;
 
     @OneToMany(mappedBy = "produto")
+    @JsonIgnore
     private List<ItemCarrinho> itens = new ArrayList<>();
 }

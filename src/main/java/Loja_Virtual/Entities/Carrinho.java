@@ -1,6 +1,7 @@
 package Loja_Virtual.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class Carrinho {
 
     @OneToOne
     @JoinColumn(name = "id_usuario_fk")
+    @JsonIgnore
     private Usuario usuario;
 
 

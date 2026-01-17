@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/auth")
 public class CadastroController {
     private final CadastoUsuarioService cadastroUsuarioService;
 
-    @PostMapping("cadastrar")
+    @PostMapping("/cadastrar")
     public ResponseEntity<UsuarioResponseDTO> criarUsuario(@Valid @RequestBody UsuarioRequestDTO dto){
         UsuarioResponseDTO novoUsuario = cadastroUsuarioService.novoUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
