@@ -66,8 +66,13 @@ public class ProdutosController {
     @DeleteMapping("/admin/produto/{id}")
         public ResponseEntity<Produto> deletar(@PathVariable Long id){
             Produto deletado = produtosService.deletar(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok(deletado);
 
+    }
+
+    @GetMapping("/loja-virtual/admin/teste")
+    public String teste() {
+        return "ADMIN OK";
     }
 
 }

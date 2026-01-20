@@ -27,7 +27,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain)
             throws ServletException, IOException {
-        String path = request.getHeader("Authorization");
         String authHeader = request.getHeader("Authorization");
 
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
@@ -35,10 +34,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        if (path.startsWith("/swagger") ||
-                path.startsWith("/v3/api-docs") ||
-                path.startsWith("/h2-console") ||
-                path.startsWith("/webjars")) {
+        String uri = request.getRequestURI();
+
+        if (uri.startsWith("/swagger") ||
+                uri.startsWith("/v3/api-docs") ||
+                uri.startsWith("/h2-console") ||
+                uri.startsWith("/webjars") ||
+                uri.startsWith("/auth")) {
 
             filterChain.doFilter(request, response);
             return;
