@@ -1,5 +1,6 @@
 package Loja_Virtual.Services;
 
+import Loja_Virtual.DTOS.DescontoRequestDTO;
 import Loja_Virtual.Repository.ProdutosRepository;
 import Loja_Virtual.DTOS.ProdutoRequestDTO;
 import Loja_Virtual.Entities.Produto;
@@ -53,5 +54,24 @@ public class ProdutosService {
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
         produtosRepository.delete(deletado);
         return deletado;
+    }
+
+    public Produto aplicarDesconto(Long id, DescontoRequestDTO dto){
+        Produto produto = produtosRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
+        if(dto.percentual() < 0 || dto.percentual() >= 99){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Desconto inválido");
+        }
+
+        if(dto.fim().isBefore(dto.inicio())){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Data final inválida");
+        }
+
+        produto.setPercentualDesconto(dto.percentual());
+        produto.setDescontoInicio(dto.inicio());
+        produto.setDescontoFim(dto.fim());
+
+        return produtosRepository.save(produto);
     }
 }

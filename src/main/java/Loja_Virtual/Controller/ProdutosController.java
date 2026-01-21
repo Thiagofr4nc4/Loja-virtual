@@ -70,9 +70,4 @@ public class ProdutosController {
 
     }
 
-    @GetMapping("/loja-virtual/admin/teste")
-    public String teste() {
-        return "ADMIN OK";
-    }
-
 }
