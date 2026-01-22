@@ -1,10 +1,7 @@
 package Loja_Virtual.Controller;
 
-import Loja_Virtual.DTOS.AdicionarProdutoDTO;
-import Loja_Virtual.DTOS.CarrinhoDTO;
+import Loja_Virtual.DTOS.*;
 import Loja_Virtual.Entities.Carrinho;
-import Loja_Virtual.Repository.ProdutosRepository;
-import Loja_Virtual.DTOS.ProdutoRequestDTO;
 import Loja_Virtual.Entities.Produto;
 import Loja_Virtual.Services.CarrinhoService;
 import Loja_Virtual.Services.ProdutosService;
@@ -29,7 +26,7 @@ public class ProdutosController {
     public List<Produto> listarProdutos(){return produtosService.listarProdutos();}
 
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/carrinho")
+    @PostMapping("/carrinho/{usuarioId}")
     public ResponseEntity<Carrinho> adicionarCarrinho(@PathVariable Long usuarioId,
                                                       @RequestBody AdicionarProdutoDTO dto,
                                                       Authentication authentication){
@@ -70,4 +67,18 @@ public class ProdutosController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/admin/produto/desconto/{id}")
+        public ResponseEntity<Produto> aplicarDesconto(@PathVariable Long id,
+                                                       @RequestBody DescontoRequestDTO dto){
+        Produto descontoAplicado = produtosService.aplicarDesconto(id, dto);
+        return ResponseEntity.ok(descontoAplicado);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/admin/produto/desconto")
+        public ResponseEntity<Void> aplicarDescontoEmLote(@RequestBody DescontoEmLoteRequestDTO dto){
+        produtosService.aplicarDescontoEmLote(dto);
+        return ResponseEntity.ok().build();
+    }
 }

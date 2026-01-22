@@ -1,5 +1,6 @@
 package Loja_Virtual.Services;
 
+import Loja_Virtual.DTOS.DescontoEmLoteRequestDTO;
 import Loja_Virtual.DTOS.DescontoRequestDTO;
 import Loja_Virtual.Repository.ProdutosRepository;
 import Loja_Virtual.DTOS.ProdutoRequestDTO;
@@ -73,5 +74,30 @@ public class ProdutosService {
         produto.setDescontoFim(dto.fim());
 
         return produtosRepository.save(produto);
+    }
+
+    public void aplicarDescontoEmLote(DescontoEmLoteRequestDTO dto){
+        if(dto.percentual() < 0 || dto.percentual() >= 99){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Desconto inválido");
+        }
+
+        if(dto.fim().isBefore(dto.inicio())){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Data final inválida");
+        }
+
+        List<Produto> produtos = produtosRepository.findAllById(dto.produtosIds());
+
+        if(produtos.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhum produto encontrado");
+        }
+
+        produtos.forEach(produto -> {
+            produto.setPercentualDesconto(dto.percentual());
+            produto.setDescontoInicio(dto.inicio());
+            produto.setDescontoFim(dto.fim());
+        });
+
+        produtosRepository.saveAll(produtos);
     }
 }
